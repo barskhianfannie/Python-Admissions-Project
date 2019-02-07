@@ -23,7 +23,6 @@ class Run(object):
         print("-----------Waitlisted Applicants----------------")
         for index, applicant in enumerate(waitlisted_applicants):
             print("%10d%22d" %(index + 1,applicant["application_id"]))
-        
-
+            
 if __name__ == "__main__":
     Run().print_list()

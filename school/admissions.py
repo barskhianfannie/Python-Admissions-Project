@@ -10,11 +10,19 @@ def get(applications):
     """
 
     applicants =[]
+
+    #Weighting Quoata for available spots per Alumni and Affirmative students
     alumniQuota = 0.2
     affirmativeQuota = 0.1
+
+    #Set spots available to 36, 30 will be admitted and 6 will be waitlisted
     spots_available = 36
+
+    #Set available Alumni and Affirmative Action spots
     alumniSpots = int(spots_available * alumniQuota)
     affirmativeSpots = int(spots_available * affirmativeQuota)
+
+    #Calculate for equal weight to add "total_score" for sorting purposes.
     for applicant in applications:
         total_score = (applicant["personal_statement_grade"] * 0.8) + applicant["school_gpa"]
         applicant["total_score"] = total_score
