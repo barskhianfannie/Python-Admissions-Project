@@ -8,51 +8,45 @@ def get(applications):
     It's easier to do this step by step, first picking alumni/affirmative children as quotas permit and
     placing the rest in a general pool along with the others.
     """
+    #Set spots available for each quota and sort applcants by total weighted score.
+    alumni_spots = 6
+    affirmative_spots = 3
+    applicants = list(applications)
+    applicants.sort(key=lambda a: (a["personal_statement_grade"] * 0.8) + a["school_gpa"], reverse=True)
 
-    applicants =[]
-
-    #Weighting Quoata for available spots per Alumni and Affirmative students
-    alumniQuota = 0.2
-    affirmativeQuota = 0.1
-
-    #Set spots available to 36, 30 will be admitted and 6 will be waitlisted
-    spots_available = 36
-
-    #Set available Alumni and Affirmative Action spots
-    alumniSpots = int(spots_available * alumniQuota)
-    affirmativeSpots = int(spots_available * affirmativeQuota)
-
-    #Calculate for equal weight to add "total_score" for sorting purposes.
-    for applicant in applications:
-        total_score = (applicant["personal_statement_grade"] * 0.8) + applicant["school_gpa"]
-        applicant["total_score"] = total_score
-        applicants.append(applicant)
-        applicants.sort(key=lambda a: a["total_score"], reverse= True)
-
-    accepted_applicants = []
+    accepted = []
     general_applicants = []
- 
-    for applicant in applicants:
-        if spots_available > 0:
-            if (applicant["has_alumni_parent"] and alumniSpots > 0):
-                accepted_applicants.append(applicant)
-                spots_available -= 1
-                alumniSpots -= 1
-            elif (applicant["affirmative_action"] and affirmativeSpots > 0):
-                accepted_applicants.append(applicant)
-                spots_available -= 1
-                affirmativeSpots -=1
-            else:
-                general_applicants.append(applicant)
-        else:
-            break        
+    waitlisted_applicants = []
 
-    for applicant in general_applicants:
-        if spots_available > 0:
-            accepted_applicants.append(applicant)
-            spots_available -= 1
-        else:
-            break
+    #Will Return a Tuple with two lists (Accepted Applicants / Waitlisted Applicants)
+    accepted_applicants =(accepted, waitlisted_applicants)
     
+    #Check for alumni/affirmative applicants to meet quota.
+    for applicant in applicants:
+        if applicant["has_alumni_parent"] and alumni_spots > 0:
+            accepted.append(applicant)
+            alumni_spots -= 1
+        elif applicant["affirmative_action"] and affirmative_spots > 0:
+            accepted.append(applicant)
+            affirmative_spots -= 1
+        else:
+            general_applicants.append(applicant)
+
+
+    #Calculate available spots after meeting alumni/affirmative quota and fill them.       
+    general_spots = 27 + (9-len(accepted))
+    for applicant in general_applicants:
+        if len(accepted) < 30:
+            accepted.append(applicant)
+            general_spots -= 1
+
+    #Fill waitlisted spots and add to waitlisted applicant list
+    for applicant in general_applicants:
+        if len(waitlisted_applicants) < 6:
+            waitlisted_applicants.append(applicant)
+
+    #Sort all accepted and waitlisted applicants by total weighted score.
+    accepted.sort(key=lambda a: (a["personal_statement_grade"] * 0.8) + a["school_gpa"], reverse=True)
+    waitlisted_applicants.sort(key=lambda a: (a["personal_statement_grade"] * 0.8) + a["school_gpa"], reverse=True)
 
     return accepted_applicants

@@ -14,8 +14,8 @@ class Run(object):
         """
         applications = Applications(1000)
         admitted = get(applications)
-        admitted_applicants = admitted[:30]
-        waitlisted_applicants = admitted[30:]
+        admitted_applicants = admitted[0]
+        waitlisted_applicants = admitted[1]
 
         print("------------Admitted Applicants-----------------")
         for index, applicant in enumerate(admitted_applicants):
