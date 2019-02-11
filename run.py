@@ -1,5 +1,5 @@
 """
-Get admissions.
+Get admissions. Fannie Barskhian 2019.
 """
 from data.applications import Applications
 from school.admissions import get
