@@ -1,5 +1,5 @@
 """
-Admissions unit tests.
+Admissions unit tests. Fannie Barskhian 2019.
 """
 import unittest
 from data.applications import Applications
@@ -58,6 +58,6 @@ class TestAdmissions(unittest.TestCase):
         self.assertGreater(top_score, middle_applicant_score)
         self.assertGreater(middle_applicant_score, last_applicant_score)
 
-
+    
 if __name__ == "__main__":
     unittest.main()

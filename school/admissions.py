@@ -1,5 +1,5 @@
 """
-Admissions.
+Admissions. Fannie Barskhian 2019.
 """
 from data.applications import Applications
 
@@ -38,6 +38,7 @@ def get(applications):
     for applicant in general_applicants:
         if len(accepted) < 30:
             accepted.append(applicant)
+            general_applicants.remove(applicant)
             general_spots -= 1
 
     #Fill waitlisted spots and add to waitlisted applicant list
