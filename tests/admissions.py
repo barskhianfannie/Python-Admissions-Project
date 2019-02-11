@@ -32,7 +32,7 @@ class TestAdmissions(unittest.TestCase):
     
     def test_weighted_logic(self):
         """
-        Check the top / middle / and bottom applicant total weighted scores to make 
+        Check the top / middle / and bottom applicant total weighted scores to
         make sure applicants are being chosen and sorted correctly.
         """
         top_applicant = self.apps[0][0]
