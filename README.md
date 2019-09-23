@@ -13,10 +13,4 @@ Your job is to process 1,000 applications to pick an admitted list of 30 and a w
 
 An "Applications" class is available to you get the student applications. Instantiating Applications(1000) will give you an iterable that you can use to get 1,000 student applications. See data/applications.py for the keys in the dictionaries that represent the applications.
 
-Aspect                       | Points
----------------------------- | :----:
-Operation (30)               | 30
-Organization (70)            | 40
-Application of concepts (70) | 50
-Tests (30)                   | 30
-TOTAL                        | 150
+
